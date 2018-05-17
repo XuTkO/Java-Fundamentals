@@ -1,0 +1,42 @@
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class exam {
+    public static void main(String[] args) {
+        DecimalFormat df = new DecimalFormat("0000000000");
+        Scanner scanner = new Scanner(System.in);
+
+        int maxLenght = 10;
+
+        String[] input = scanner.nextLine().split("\\s+");
+
+        int firstNum = Integer.parseInt(input[0]);
+        double secondNum = Double.parseDouble(input[1]);
+        double thirdNum = Double.parseDouble(input[2]);
+
+        String firstNumToHex = String.format("%X",firstNum);
+        int firstNumToHeXLenght = firstNumToHex.length();
+        for (int a = 0; a < 10 - firstNumToHeXLenght; a++) {
+            firstNumToHex = firstNumToHex + " ";
+            }
+        String firstNumToBinToTen = df.format(Integer.parseInt(Integer.toBinaryString(firstNum)));
+        System.out.print("|" + firstNumToHex);
+
+        System.out.print("|" + firstNumToBinToTen + "|");
+
+        String secondToSecond = String.format("%.2f",secondNum);
+        int lenghtSecond = secondToSecond.length();
+        for (int a = 0; a < 10 - lenghtSecond; a++) {
+        secondToSecond = " " + secondToSecond;
+        }
+        System.out.print(secondToSecond + "|");
+
+        String thirdToThird = String.format("%.3f",thirdNum);
+        int lenghtThird = thirdToThird.length();
+
+        for (int a = 0; a < 10-lenghtThird; a++) {
+            thirdToThird = thirdToThird + " ";
+        }
+        System.out.println(thirdToThird + "|");
+    }
+}
