@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class exam {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] input = scanner.nextLine().split("\\s+");
+
+        double firstNum = Double.parseDouble(input[0]);
+        double secondNum = Double.parseDouble(input[1]);
+        double thirdNum = Double.parseDouble(input[2]);
+
+        double f1FirstPart = (Math.pow(firstNum,2) + Math.pow(secondNum,2))/(Math.pow(firstNum,2) - Math.pow(secondNum,2));
+        double f1 = Math.pow(f1FirstPart,((firstNum+secondNum+thirdNum)/Math.sqrt(thirdNum)));
+
+        double f2FirtsPart = Math.pow(firstNum,2) + Math.pow(secondNum,2) - Math.pow(thirdNum,3);
+        double f2 = Math.pow(f2FirtsPart,firstNum-secondNum);
+        double average = Math.abs(((firstNum + secondNum + thirdNum)/3) - (f1 + f2)/2);
+
+        System.out.printf("F1 result: %.2f; F2 result: %.2f; Diff: %.2f",f1,f2,average);
+
+
+
+    }
+}
