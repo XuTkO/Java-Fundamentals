@@ -1,0 +1,19 @@
+import java.util.Scanner;
+
+public class exam {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int target = scanner.nextInt();
+
+        for (int a = 1; a <= 20; a++) {
+            for (int b = 1; b <= 20; b++) {
+                if (a+b == target ){
+                    System.out.println(a + " + " + b + " = " + target );
+                } else if (a-b==target){
+                    System.out.println(a + " - " + b + " = " + target );
+                }
+            }
+        }
+    }
+}
