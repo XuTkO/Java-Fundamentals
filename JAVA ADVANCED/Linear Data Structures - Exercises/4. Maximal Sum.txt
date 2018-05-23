@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class exam {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[] sizes = Arrays.stream(scanner.nextLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+
+        int rows = sizes[0];
+        int cols = sizes[1];
+        int[][] matrix = new int[rows][cols];
+
+        for (int a = 0; a < rows; a++) {
+            int[] input = Arrays.stream(scanner.nextLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+            for (int b = 0; b < cols; b++) {
+                matrix[a][b] = input[b];
+
+            }
+        }
+
+        int rowIndex = 0;
+        int colIntex = 0;
+        int maxSum = 0;
+
+        for (int startRow = 0; startRow < rows - 2; startRow++) {
+            for (int startColumn = 0; startColumn < cols - 2; startColumn++) {
+                int currentRowSum = 0;
+                for (int rowsC = startRow; rowsC <= startRow + 2; rowsC++) {
+                    for (int columns = startColumn; columns <= startColumn + 2; columns++) {
+                        currentRowSum += matrix[rowsC][columns];
+
+                        if (currentRowSum > maxSum) {
+                            rowIndex = rowsC - 1;
+                            colIntex = columns - 1;
+                            maxSum = currentRowSum;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Sum = " + maxSum);
+
+        if (maxSum==0){
+            System.out.printf("0 0 0 %n");
+            System.out.printf("0 0 0 %n");
+            System.out.printf("0 0 0");
+            return;
+        }
+        System.out.printf("%s %s %s%n",matrix[rowIndex-1][colIntex-1],matrix[rowIndex-1][colIntex],matrix[rowIndex-1][colIntex+1]);
+        System.out.printf("%s %s %s%n",matrix[rowIndex][colIntex-1],matrix[rowIndex][colIntex],matrix[rowIndex][colIntex+1]);
+        System.out.printf("%s %s %s",matrix[rowIndex+1][colIntex-1],matrix[rowIndex+1][colIntex],matrix[rowIndex+1][colIntex+1]);
+    }
+}

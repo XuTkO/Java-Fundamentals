@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class exam {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[] input = Arrays.stream(scanner.nextLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+
+        int firstNum = input[0];
+        int secondNum = input[1];
+
+
+
+        String[][] matrix = new String[firstNum][secondNum];
+
+        for (int a = 0; a < firstNum; a++) {
+            for (int b = 0; b < secondNum; b++) {
+                matrix[a][b] = String.valueOf((char)(97+a)) + String.valueOf((char)(97+b+a)) + String.valueOf((char)(97+a));
+
+            }
+        }
+        for (String[] strings : matrix) {
+            for (String string : strings) {
+                System.out.print(string + " ");
+            }
+            System.out.println();
+        }
+
+    }
+}

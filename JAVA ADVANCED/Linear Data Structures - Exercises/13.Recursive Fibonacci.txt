@@ -1,0 +1,24 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        int numbers = Integer.parseInt(bf.readLine());
+        ArrayDeque<Long> fibonacci = new ArrayDeque<>();
+
+        long firstNum = 1;
+        long secondNum = 1;
+        for (int i = 0; i < numbers-1; i++) {
+
+            long fib = firstNum+secondNum;
+            fibonacci.push(fib);
+            firstNum=secondNum;
+            secondNum=fib;
+        }
+        System.out.println(fibonacci.pop());
+    }
+}
