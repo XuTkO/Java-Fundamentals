@@ -1,0 +1,26 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String name = bf.readLine();
+
+        while (!name.equals("stop")){
+            String mail = bf.readLine();
+            if (!mail.contains(".com") && !mail.contains(".uk") && !mail.contains(".us")){
+                map.put(name,mail);
+            }
+            name = bf.readLine();
+        }
+
+        for (String s : map.keySet()) {
+            System.out.println(s + " -> " + map.get(s));
+        }
+    }
+}

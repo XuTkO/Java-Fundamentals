@@ -1,0 +1,38 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String, String> phoneBook = new LinkedHashMap<>();
+
+        String input = bf.readLine();
+        while (!input.equals("search")){
+            String[] arr = input.split("-");
+            String name = arr[0];
+            String number = arr[1];
+
+            if (!phoneBook.containsKey(name)){
+                phoneBook.put(name,number);
+            } else {
+                phoneBook.put(name,number);
+            }
+            input = bf.readLine();
+        }
+
+        String secondInput = bf.readLine();
+        while (!secondInput.equals("stop")){
+            if (phoneBook.containsKey(secondInput)){
+                System.out.printf("%s -> %s%n",secondInput,phoneBook.get(secondInput));
+            } else {
+                System.out.printf("Contact %s does not exist.%n",secondInput);
+            }
+
+            secondInput = bf.readLine();
+        }
+    }
+}

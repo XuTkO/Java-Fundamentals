@@ -1,0 +1,29 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+
+        String input = bf.readLine();
+
+
+        while (!input.equals("stop")){
+            int number = Integer.parseInt(bf.readLine());
+            if (!map.containsKey(input)){
+                map.put(input,number);
+            } else {
+                map.put(input,map.get(input) + number);
+            }
+            input = bf.readLine();
+        }
+        for (String s : map.keySet()) {
+            System.out.println(s + " -> " + map.get(s));
+        }
+    }
+}

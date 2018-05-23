@@ -1,0 +1,30 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.TreeSet;
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        char[] input = bf.readLine().toCharArray();
+
+        LinkedHashMap<Character,Integer> map = new LinkedHashMap<>();
+
+        for (int a = 0; a < input.length; a++) {
+            if (!map.containsKey(input[a])){
+                map.put(input[a],1);
+            } else  {
+                map.put(input[a],map.get(input[a])+1);
+            }
+        }
+
+        map.entrySet().stream().sorted((a2,a1)-> Integer.compare(a2.getKey(),a1.getKey()))
+                .forEach(a->{
+                    System.out.printf("%s: %d time/s%n",a.getKey(),a.getValue());
+                });
+    }
+}

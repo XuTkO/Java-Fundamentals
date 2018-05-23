@@ -1,0 +1,25 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.TreeSet;
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        int numLoops = Integer.parseInt(bf.readLine());
+        TreeSet<String> set = new TreeSet<>();
+
+        for (int a = 0; a < numLoops; a++) {
+            String[] input = bf.readLine().split("\\s+");
+            for (int b = 0; b < input.length; b++) {
+                set.add(input[b]);
+            }
+
+        }
+
+        System.out.println(String.join(" ",set));
+    }
+}
