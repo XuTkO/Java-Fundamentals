@@ -1,0 +1,74 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String, Integer> cardValues = new LinkedHashMap<>();
+        cardValues.put("1", 1);
+        cardValues.put("2", 2);
+        cardValues.put("3", 3);
+        cardValues.put("4", 4);
+        cardValues.put("5", 5);
+        cardValues.put("6", 6);
+        cardValues.put("7", 7);
+        cardValues.put("8", 8);
+        cardValues.put("9", 9);
+        cardValues.put("10", 10);
+        cardValues.put("J", 11);
+        cardValues.put("Q", 12);
+        cardValues.put("K", 13);
+        cardValues.put("A", 14);
+
+        LinkedHashMap<String, Integer> cardsPower = new LinkedHashMap<>();
+        cardsPower.put("S", 4);
+        cardsPower.put("H", 3);
+        cardsPower.put("D", 2);
+        cardsPower.put("C", 1);
+
+        String input = bf.readLine();
+
+        LinkedHashMap<String, Long> result = new LinkedHashMap<>();
+
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+        while (!input.equals("JOKER")) {
+            String[] nameAndCardsFromInput = input.split(": ");
+            String name = nameAndCardsFromInput[0];
+            String cardsWithoutRegex = nameAndCardsFromInput[1];
+            if (!map.containsKey(name)) {
+                map.put(name, cardsWithoutRegex);
+            } else {
+                map.put(name, map.get(name) + ", " + cardsWithoutRegex);
+            }
+            input = bf.readLine();
+        }
+        for (String mapKey : map.keySet()) {
+            long sum = 0;
+            String[] cards = map.get(mapKey).split(", ");
+            HashSet<String> cardsSet = new HashSet<>(Arrays.asList(cards));
+            cards = cardsSet.toArray(new String[cardsSet.size()]);
+            for (int a = 0; a < cards.length; a++) {
+                String card = cards[a].substring(0, cards[a].length() - 1);
+                String power = cards[a].substring(cards[a].length() - 1);
+                int currentNum = 0;
+                if (cardValues.containsKey(card)) {
+                    currentNum = cardValues.get(card);
+                }
+                if (cardsPower.containsKey(power)) {
+                    sum += currentNum * cardsPower.get(power);
+                }
+            }
+            result.put(mapKey, sum);
+        }
+
+        for (String resultKey : result.keySet()) {
+            System.out.println(resultKey + ": " + result.get(resultKey));
+        }
+    }
+}
