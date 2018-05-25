@@ -1,0 +1,57 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        String input = bf.readLine();
+
+        LinkedHashMap<String, LinkedHashMap<String, Long>> map = new LinkedHashMap<>();
+
+        while (!input.equals("report")) {
+            String[] inputAsArray = input.split("\\|");
+            String town = inputAsArray[0];
+            String country = inputAsArray[1];
+            long population = Long.parseLong(inputAsArray[2]);
+
+            if (!map.containsKey(country)) {
+                map.put(country, new LinkedHashMap<>());
+                map.get(country).put(town, population);
+            } else if (map.containsKey(country)) {
+                map.get(country).put(town, population);
+            }
+
+            input = bf.readLine();
+        }
+        map.entrySet()
+                .stream()
+                .sorted((a1, a2) -> Long.compare(a2.getValue()
+                                .values()
+                                .stream()
+                                .mapToLong(Long::longValue)
+                                .sum(),
+                        a1.getValue()
+                                .values()
+                                .stream()
+                                .mapToLong(Long::longValue)
+                                .sum()))
+                .forEach(a -> {
+                    System.out.println(a.getKey() + " (total population: " + a.getValue()
+                    .values()
+                            .stream()
+                            .mapToLong(Long::longValue)
+                            .sum() + ")");
+                    a.getValue()
+                            .entrySet()
+                            .stream()
+                            .sorted((b1,b2) -> Long.compare(b2.getValue(),b1.getValue()))
+                            .forEach(b-> {
+                                System.out.println("=>" + b.getKey() + ": " + b.getValue());
+                            });
+
+                });
+    }
+}
