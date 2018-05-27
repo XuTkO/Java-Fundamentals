@@ -1,0 +1,46 @@
+import java.io.*;
+import java.util.*;
+
+
+public class exam {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        TreeMap<String, LinkedHashMap<String, Integer>> map = new TreeMap<>();
+
+
+        int counters = Integer.parseInt(bf.readLine());
+
+        for (int a = 0; a < counters; a++) {
+            String[] input = bf.readLine().split("\\s+");
+            String ip = input[0];
+            String name = input[1];
+            int number = Integer.parseInt(input[2]);
+
+            if (!map.containsKey(name)) {
+                map.put(name, new LinkedHashMap<>());
+                map.get(name).put(ip, number);
+            } else if (map.containsKey(name)) {
+                if (!map.get(name).containsKey(ip)) {
+                    map.get(name).put(ip, number);
+                } else {
+                    map.get(name).put(ip, map.get(name).get(ip) + number);
+                }
+
+            }
+        }
+        for (String s : map.keySet()) {
+            System.out.print(s + ": ");
+            int sum = map.get(s).values().stream().mapToInt(Integer::intValue).sum();
+            System.out.print(sum + " [");
+            List<String> ipList = new ArrayList<>();
+            for (String s1 : map.get(s).keySet()) {
+                ipList.add(s1);
+            }
+//            ipList.addAll(map.get(s).keySet()); -- this is the sime like second for cycle
+//            List<String> ipList = new ArrayList<>(map.get(s).keySet()); -- this is from List<String> ipList
+            Collections.sort(ipList);
+            System.out.println(String.join(", ",ipList) + "]");
+        }
+    }
+}
