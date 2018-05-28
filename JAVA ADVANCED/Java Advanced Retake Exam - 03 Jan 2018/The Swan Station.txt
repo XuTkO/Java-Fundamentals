@@ -1,0 +1,36 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        List<Integer> numbers = Arrays.stream(bf.readLine().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+        List<String> resultNumbers = new ArrayList<>();
+        int size = numbers.size();
+        List<Integer> input = Arrays.stream(bf.readLine().split(" "))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+
+        while (resultNumbers.size() != size){
+            for (int a = 0; a < numbers.size(); a++) {
+                if (input.get(a)%numbers.get(a)==0){
+                    resultNumbers.add(String.valueOf(input.get(a)));
+                    numbers.remove(a);
+                    input.remove(a);
+                    a--;
+                } else  {
+                    input.add(input.get(a) + 1);
+                    input.remove(a);
+
+                    a--;
+                }
+            }
+
+        }
+        System.out.println(String.join(", ",resultNumbers));
+    }
+}
