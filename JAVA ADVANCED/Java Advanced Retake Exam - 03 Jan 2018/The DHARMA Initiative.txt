@@ -1,0 +1,65 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String input = bf.readLine();
+
+        LinkedHashMap<String,LinkedHashMap<String, Integer>> map = new LinkedHashMap<>();
+        map.put("Arrow",new LinkedHashMap<>());
+        map.put("Flame",new LinkedHashMap<>());
+        map.put("Hydra",new LinkedHashMap<>());
+        map.put("Orchid",new LinkedHashMap<>());
+        map.put("Pearl",new LinkedHashMap<>());
+
+        while (!input.equals("Recruit")) {
+            String[] tokens = input.split(":");
+            String name = tokens[0];
+            int number = Integer.parseInt(tokens[1]);
+            String station = tokens[2];
+            if (map.containsKey(station)){
+                map.get(station).put(name,number);
+            }
+
+            input = bf.readLine();
+        }
+        String command = bf.readLine();
+        if (command.equals("DHARMA Initiative")){
+            map.entrySet()
+                    .stream()
+                    .sorted((a1,a2) -> Integer.compare(a2.getValue().size(),a1.getValue().size()))
+                    .forEach(a -> {
+                        System.out.println("The " + a.getKey() + " has " + a.getValue().size() + " DHARMA recruits in it.");
+                    });
+        } else if (map.keySet().contains(command)){
+            if (command.equals("Arrow")){
+                System.out.println("The Arrow station: Development of defensive strategies, and Intelligence gathering.");
+            } else if (command.equals("Flame")){
+                System.out.println("The Flame station: Communication.");
+            } else if (command.equals("Hydra")){
+                System.out.println("The Hydra station: Zoological Research.");
+            }else if (command.equals("Orchid")){
+                System.out.println("The Orchid station: Space-time manipulation research, disguised as a Botanical station.");
+            }else if (command.equals("Pearl")){
+                System.out.println("The Pearl station: Psychological Research and/or Observation.");
+            }
+            if (map.get(command).isEmpty()){
+                System.out.println("No recruits.");
+                return;
+            }
+            map.get(command).entrySet()
+                    .stream()
+                    .sorted((a1,a2) -> Integer.compare(a2.getValue(),a1.getValue()))
+                    .forEach(a -> {
+                        System.out.println("###" + a.getKey() + " - " + a.getValue());
+                    });
+        } else {
+            System.out.println("DHARMA Initiative does not have such a station!");
+        }
+    }
+}
