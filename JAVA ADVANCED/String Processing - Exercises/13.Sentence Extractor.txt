@@ -1,0 +1,36 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String key = bf.readLine();
+        String[] input = bf.readLine().split(" ");
+        StringBuilder sb = new StringBuilder();
+        List<String> senteces = new ArrayList<>();
+
+        for (int a = 0; a < input.length; a++) {
+            if (input[a].substring(input[a].length()-1).equals("!") || input[a].substring(input[a].length()-1).equals(".") ||
+            input[a].substring(input[a].length()-1).equals("?")){
+                sb.append(input[a]);
+                String sent = sb.toString();
+                senteces.add(sent);
+                sb = new StringBuilder();
+            } else {
+                sb.append(input[a]).append(" ");
+            }
+        }
+
+        String realKey = " " + key + " ";
+        for (String sentece : senteces) {
+            if (sentece.contains(realKey)) {
+                System.out.println(sentece);
+            }
+        }
+    }
+}

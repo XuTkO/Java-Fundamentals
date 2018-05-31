@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] input = bf.readLine().split(" ");
+
+        String firstWord = input[0];
+        String secondWord = input[1];
+
+        LinkedHashMap<Character, Character> map = new LinkedHashMap<>();
+
+        int minLenght = Math.min(firstWord.length(), secondWord.length());
+        int maxLenght = Math.max(firstWord.length(), secondWord.length());
+
+        for (int a = 0; a < minLenght; a++) {
+            if (!map.containsKey(firstWord.charAt(a))) {
+                if (map.containsValue(secondWord.charAt(a))) {
+                    System.out.println(false);
+                    return;
+                } else {
+                    map.put(firstWord.charAt(a), secondWord.charAt(a));
+                }
+            } else {
+                if (map.containsKey(firstWord.charAt(a)) && map.get(firstWord.charAt(a)) != secondWord.charAt(a)) {
+                    System.out.println(false);
+                    return;
+                }
+            }
+        }
+
+        if (firstWord.length() > secondWord.length()){
+            String partOfWord = firstWord.substring(minLenght,maxLenght);
+            for (int a = 0; a < partOfWord.length(); a++) {
+                if (!map.containsKey(partOfWord.charAt(a))){
+                    System.out.println(false);
+                    return;
+                }
+            }
+        } else if (secondWord.length() > firstWord.length()){
+                String partOfWord = secondWord.substring(minLenght,maxLenght);
+            for (int a = 0; a < partOfWord.length(); a++) {
+                if (!map.containsValue(partOfWord.charAt(a))){
+                    System.out.println(false);
+                    return;
+                }
+            }
+        }
+        System.out.println("true");
+    }
+}

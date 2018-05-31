@@ -1,0 +1,25 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+
+        String[] input = bf.readLine().split(",? ");
+        Pattern pattern = Pattern.compile("^[a-z]([A-Za-z0-9.-_]+)\\.?-?\\w+?@\\w+-?\\.?(\\w+)?\\.?(\\w+)?\\.\\w+");
+
+
+        for (int a = 0; a < input.length; a++) {
+        Matcher matcher = pattern.matcher(input[a]);
+        if (matcher.find()){
+            System.out.println(matcher.group());
+        }
+        }
+
+    }
+}

@@ -1,0 +1,21 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] replace = bf.readLine().split(", ");
+        String text = bf.readLine();
+
+        for (int a = 0; a < replace.length; a++) {
+            StringBuilder replaced = new StringBuilder();
+            for (int b = 0; b < replace[a].length(); b++) {
+             replaced.append("*");
+            }
+            text = text.replace(replace[a],replaced);
+        }
+        System.out.println(text);
+    }
+}

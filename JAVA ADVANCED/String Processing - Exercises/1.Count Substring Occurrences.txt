@@ -1,0 +1,26 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String input = bf.readLine().toLowerCase();
+        String command = bf.readLine().toLowerCase();
+
+        int counter = 0;
+        int first = input.indexOf(command);
+        while (first !=-1){
+            counter++;
+            input = input.substring(first+1);
+            first = input.indexOf(command);
+        }
+
+        System.out.println(counter);
+
+
+    }
+}

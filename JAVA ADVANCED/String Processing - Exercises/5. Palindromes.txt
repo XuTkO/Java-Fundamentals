@@ -1,0 +1,33 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String regex = "[ ?\\??,?!?.?]+";
+
+        String[] input = bf.readLine().split(regex);
+        Set<String> result = new TreeSet<>();
+
+        for (int a = 0; a < input.length; a++) {
+            String inputA = input[a];
+            if (inputA.length() == 1) {
+                result.add(inputA);
+            }
+            for (int b = 0; b < inputA.length() / 2; b++) {
+                if (!inputA.substring(b, b + 1).equals(inputA.substring(inputA.length() - b - 1, inputA.length() - b))) {
+                    break;
+                }
+                if (b == inputA.length() / 2 - 1) {
+                    result.add(inputA);
+
+                }
+            }
+        }
+
+        System.out.println(result);
+    }
+}
