@@ -1,0 +1,31 @@
+import javafx.util.Pair;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class otherExercise {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        List<Pair<String,String>> students = new ArrayList<>();
+
+        String input = bf.readLine();
+
+        while (!"END".equals(input)){
+            String[] tokens = input.split("\\s+");
+            String name = tokens[0];
+            String lastName = tokens[1];
+
+            Pair<String,String> student = new Pair<>(name,lastName);
+            students.add(student);
+            input = bf.readLine();
+        }
+
+        students.stream()
+                .filter(s->s.getValue().compareTo(s.getKey()) > 0)
+                .forEach(s-> System.out.println(String.format("%s %s",s.getKey(),s.getValue())));
+    }
+}

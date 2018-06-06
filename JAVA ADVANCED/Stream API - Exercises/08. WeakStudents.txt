@@ -1,0 +1,49 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+public class otherExercise {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+        String input = bf.readLine();
+
+        while (!"END".equals(input)) {
+            String[] tokens = input.split("\\s+");
+            StringBuilder name = new StringBuilder();
+            name.append(tokens[0]).append(" ").append(tokens[1]);
+            StringBuilder phoneNumber = new StringBuilder();
+
+            for (int a = 2; a < tokens.length; a++) {
+                phoneNumber.append(tokens[a]).append(" ");
+            }
+
+            if (!map.containsKey(name)) {
+                map.put(name.toString(), phoneNumber.toString());
+            }
+            input = bf.readLine();
+        }
+
+        map.entrySet().stream().filter(x -> {
+            List<Integer> numbers = Arrays.stream(x.getValue().split(" ")).map(Integer::parseInt).collect(Collectors.toList());
+            int counter = 0;
+            for (int a = 0; a < numbers.size(); a++) {
+                if (numbers.get(a) == 2 || numbers.get(a) == 3) {
+                    counter++;
+                }
+            }
+            if (counter >= 2) {
+                return true;
+            }
+            return false;
+        }).forEach(x -> System.out.println(x.getKey()));
+
+    }
+}

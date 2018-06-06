@@ -1,0 +1,78 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        List<Long> numbers = Arrays.stream(bf.readLine().split("\\s+"))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+
+        String input = bf.readLine();
+
+        Function<List<Long>, List<Long>> funcAdd = getAdd();
+        Function<List<Long>, List<Long>> funcMulty = getMulty();
+        Function<List<Long>, List<Long>> funcSub = getSub();
+
+        Consumer<List<Long>> cons = x -> {
+            for (Long integer : x) {
+                System.out.print(integer + " ");
+            }
+        };
+
+
+        while (!"end".equals(input)){
+            if (input.equals("add")){
+            funcAdd.apply(numbers);
+            } else if (input.equals("multiply")){
+                funcMulty.apply(numbers);
+            } else if (input.equals("subtract")){
+                funcSub.apply(numbers);
+            } else if (input.equals("print")){
+                cons.accept(numbers);
+            }
+            input = bf.readLine();
+        }
+
+    }
+
+    private static Function<List<Long>, List<Long>> getSub() {
+        return x -> {
+                for (int a = 0; a < x.size(); a++) {
+                    x.add(x.get(0)-1);
+                    x.remove(0);
+                }
+                return x;
+            };
+    }
+
+    private static Function<List<Long>, List<Long>> getMulty() {
+        return x -> {
+                for (int a = 0; a < x.size(); a++) {
+                    x.add(x.get(0)*2);
+                    x.remove(0);
+                }
+                return x;
+            };
+    }
+
+    private static Function<List<Long>, List<Long>> getAdd() {
+        return x -> {
+                for (int a = 0; a < x.size(); a++) {
+                    x.add(x.get(0) + 1);
+                    x.remove(0);
+                }
+                return x;
+            };
+    }
+}
+

@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+
+public class otherExercise {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String,String> map = new LinkedHashMap<>();
+
+        String input = bf.readLine();
+
+        while (!"END".equals(input)){
+            String[] tokens = input.split("\\s+");
+            StringBuilder name = new StringBuilder();
+            name.append(tokens[0]).append(" ").append(tokens[1]);
+            String email = tokens[2];
+
+            if (!map.containsKey(name)){
+                map.put(name.toString(),email);
+            }
+            input = bf.readLine();
+        }
+
+        map.entrySet().stream().filter(x-> x.getValue().endsWith("@gmail.com"))
+                .forEach(x-> System.out.println(x.getKey()));
+    }
+}

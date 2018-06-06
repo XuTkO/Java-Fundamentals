@@ -1,0 +1,35 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
+
+
+public class test {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        List<Integer> input = Arrays.stream(bf.readLine().split("\\s+")).map(Integer::parseInt).collect(Collectors.toList());
+        Collections.reverse(input);
+        int number = Integer.parseInt(bf.readLine());
+
+        BiFunction<List<Integer>,Integer,List<Integer>> biFunction = (x,y)->{
+        for (int a = 0; a < x.size(); a++) {
+            if (x.get(a)%y==0){
+                x.remove(x.get(a));
+                a--;
+            }
+        }
+        return x;
+        };
+        biFunction.apply(input, number);
+
+        for (Integer integer : input) {
+            System.out.print(integer + " ");
+        }
+    }
+}
+

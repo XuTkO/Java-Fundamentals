@@ -1,0 +1,30 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+
+
+public class otherExercise {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+
+        String input = bf.readLine();
+
+        while (!"END".equals(input)){
+            String[] tokens = input.split("\\s+");
+            StringBuilder name = new StringBuilder();
+            name.append(tokens[0]).append(" ").append(tokens[1]);
+            int age = Integer.parseInt(tokens[2]);
+
+            if (!map.containsKey(name)){
+                map.put(name.toString(),age);
+            }
+            input = bf.readLine();
+
+        }
+        map.entrySet().stream().filter(x-> x.getValue() >=18 && x.getValue() <=24)
+                .forEach(x-> System.out.println(x.getKey() + " " + x.getValue()));
+    }
+}
