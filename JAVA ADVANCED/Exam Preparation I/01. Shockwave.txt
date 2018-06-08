@@ -1,0 +1,36 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+
+
+public class otherExercise {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        int[] input = Arrays.stream(bf.readLine().split(" "))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+        int[][] matrix = new int[input[0]][input[1]];
+
+        String numbersAsText = bf.readLine();
+        while (!"Here We Go".equals(numbersAsText)){
+
+            int[] numbers = Arrays.stream(numbersAsText.split("\\s+")).mapToInt(Integer::parseInt).toArray();
+
+            for (int a = numbers[0]; a <= numbers[2]; a++){
+                for (int b = numbers[1]; b <= numbers[3]; b++){
+                    matrix[a][b] += 1;
+                }
+            }
+            numbersAsText = bf.readLine();
+        }
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.print(anInt + " ");
+            }
+            System.out.println();
+        }
+    }
+}

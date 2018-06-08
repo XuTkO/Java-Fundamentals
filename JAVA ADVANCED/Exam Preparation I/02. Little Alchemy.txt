@@ -1,0 +1,58 @@
+package com.company;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        int gold = 0;
+
+        int[] stones = Arrays.stream(bf.readLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
+
+        for (int i = 0; i < stones.length; i++) {
+            arrayDeque.addLast(stones[i]);
+        }
+
+        String input = bf.readLine();
+
+        while (!"Revision".equals(input)) {
+            String[] tokens = input.split("\\s+");
+            String command = tokens[0];
+            int number = Integer.parseInt(tokens[2]);
+
+            if ("Apply".equals(command)) {
+                for (int i = 0; i < number; i++) {
+                    if (!arrayDeque.isEmpty()) {
+                        if (arrayDeque.getFirst() - 1 == 0) {
+                            arrayDeque.pop();
+                            gold++;
+                        } else {
+                            int currentNumber = arrayDeque.pop() - 1;
+                            arrayDeque.add(currentNumber);
+                        }
+                    }
+                }
+            } else if ("Air".equals(command)) {
+                if (gold > 0) {
+                    arrayDeque.add(number);
+                    gold--;
+                }
+
+            }
+
+            input = bf.readLine();
+        }
+        for (int stone : arrayDeque) {
+            System.out.print(stone + " ");
+        }
+        System.out.println();
+        System.out.println(gold);
+    }
+}
+

@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class otherExercise {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+
+
+        String inputLine = "";
+
+        Pattern pattern = Pattern.compile("(\\,|\\_)([a-zA-Z]+)(\\d)");
+
+        String input = bf.readLine();
+        StringBuilder sb = new StringBuilder();
+
+        while (!"Ascend".equals(input)) {
+            for (Map.Entry<String, String> string : map.entrySet()) {
+                input = input.replaceAll(string.getKey(), string.getValue());
+            }
+            Matcher matcher = pattern.matcher(input);
+
+
+            while (matcher.find()) {
+                String decodedString = "";
+                String sign = matcher.group(1);
+                String encodedString = matcher.group(2);
+                int number = Integer.parseInt(matcher.group(3));
+
+                if (sign.equals(",")) {
+                    for (int a = 0; a < encodedString.length(); a++) {
+                        char ch = (char) (encodedString.charAt(a) + number);
+                        decodedString += ch;
+                    }
+                } else {
+                    for (int a = 0; a < encodedString.length(); a++) {
+                        char ch = (char) (encodedString.charAt(a) - number);
+                        decodedString += ch;
+                    }
+                }
+                map.put(matcher.group(),decodedString);
+                input = input.replaceAll(matcher.group(),decodedString);
+
+            }
+            sb.append(input).append(System.getProperty("line.separator"));
+            input = bf.readLine();
+        }
+        System.out.println(sb);
+    }
+}
