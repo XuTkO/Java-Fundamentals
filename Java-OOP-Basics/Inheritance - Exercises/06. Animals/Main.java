@@ -43,6 +43,8 @@ public class Main {
                         System.out.print(tomcat);
                         tomcat.produceSound();
                         break;
+                        default:
+                            throw new IllegalArgumentException("Invalid input!");
 
                 }
             } catch (IllegalArgumentException ex) {
