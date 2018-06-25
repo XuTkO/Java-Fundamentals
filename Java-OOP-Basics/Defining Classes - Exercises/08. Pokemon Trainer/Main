@@ -1,0 +1,50 @@
+package pokemon;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        String input = bf.readLine();
+
+        Map<String,Trainer> map = new LinkedHashMap<>();
+
+        while (!"Tournament".equals(input)){
+            String[] tokensPokemons = input.split("\\s+");
+            String trainerName = tokensPokemons[0];
+            String pokemonName = tokensPokemons[1];
+            String pokemonElement = tokensPokemons[2];
+            int pokemonHealth = Integer.parseInt(tokensPokemons[3]);
+
+            Trainer trainer = new Trainer(trainerName);
+
+            Pokemon pokemon = new Pokemon(pokemonName,pokemonElement,pokemonHealth);
+            trainer.addPokemon(pokemon);
+            if (!map.containsKey(trainerName)) {
+                map.put(trainerName, trainer);
+            } else {
+                map.get(trainerName).addPokemon(pokemon);
+            }
+
+            input = bf.readLine();
+        }
+
+        String command = bf.readLine();
+
+        while (!"End".equals(command)){
+            String finalCommand = command;
+            map.entrySet().forEach(x->{
+                x.getValue().hasPokemons(x.getValue().getPokemons(), finalCommand);
+            });
+
+            command = bf.readLine();
+        }
+        map.values().stream().sorted((a1,a2) -> Integer.compare(a2.getNumBadges(),a1.getNumBadges())).forEach(x-> System.out.println(x));
+    }
+}
