@@ -1,0 +1,39 @@
+package cars;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+        Map<String,Car> map = new LinkedHashMap<>();
+        int num= Integer.parseInt(bf.readLine());
+
+        for (int a = 0; a < num; a++){
+            String[] tokens = bf.readLine().split("\\s+");
+
+            Car car = new Car(tokens[0], Double.parseDouble(tokens[1]),Double.parseDouble(tokens[2]));
+            map.put(tokens[0],car);
+        }
+
+        String input = bf.readLine();
+
+        while (!"End".equals(input)){
+            String[] commands = input.split("\\s+");
+            try {
+                map.get(commands[1]).drive(Integer.parseInt(commands[2]));
+                map.get(commands[1]).setDistance(Integer.parseInt(commands[2]));
+            }catch (IllegalArgumentException ex){
+                System.out.println(ex.getMessage());
+            }
+
+            input = bf.readLine();
+        }
+
+        map.values().forEach(System.out::println);
+
+    }
+}
