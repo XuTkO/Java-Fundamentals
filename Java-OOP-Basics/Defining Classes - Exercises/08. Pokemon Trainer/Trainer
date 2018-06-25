@@ -1,0 +1,53 @@
+package pokemon;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Trainer {
+    private String name;
+    private int numBadges = 0;
+    private List<Pokemon> pokemons;
+
+    public Trainer(String name) {
+        this.setName(name);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        this.pokemons = new ArrayList<>();
+    }
+
+    public int getNumBadges() {
+        return numBadges;
+    }
+
+    public List<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
+    public void addPokemon(Pokemon pokemon) {
+        this.pokemons.add(pokemon);
+    }
+
+    public void hasPokemons(List<Pokemon> pokemons, String command) {
+        for (int a = 0; a < pokemons.size(); a++) {
+            if (pokemons.get(a).getElement().equals(command)) {
+                numBadges++;
+                return;
+            }
+        }
+        for (int a = 0; a < pokemons.size(); a++) {
+            pokemons.get(a).setHealth(pokemons.get(a).getHealth() - 10);
+            if (pokemons.get(a).getHealth() <= 0){
+                pokemons.remove(pokemons.get(a));
+            }
+        }
+
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %d %d",this.name,this.numBadges,this.pokemons.size());
+    }
+}
+
