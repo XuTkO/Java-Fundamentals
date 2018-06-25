@@ -1,0 +1,32 @@
+package cars;
+
+public class Car {
+    private String model;
+    private double fuelAmount;
+    private double fuelCostPer1Km;
+    private int distance;
+
+    public Car(String model, double fuelAmount, double fuelCostPer1Km) {
+        this.model = model;
+        this.fuelAmount = fuelAmount;
+        this.fuelCostPer1Km = fuelCostPer1Km;
+
+    }
+
+    public void setDistance(int distance) {
+        this.distance += distance;
+    }
+
+
+    public void drive(int distance){
+        if (this.fuelAmount < distance*this.fuelCostPer1Km){
+            throw new IllegalArgumentException("Insufficient fuel for the drive");
+        }
+        this.fuelAmount -=distance*this.fuelCostPer1Km;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %.2f %d",this.model,this.fuelAmount,this.distance);
+    }
+}
