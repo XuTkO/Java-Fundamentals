@@ -1,7 +1,0 @@
-package familyTree;
-
-public class Child {
-    private String name;
-    private String birthDateChild;
-
-}
