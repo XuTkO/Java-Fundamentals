@@ -3,7 +3,7 @@ package foodShortage;
 public class Rebel implements Buyer{
     private int age;
     private String group;
-    private int food;
+    private int food = Buyer.food;
 
     public Rebel(int age, String group) {
         this.age = age;

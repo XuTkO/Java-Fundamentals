@@ -4,7 +4,7 @@ public class Citizen implements Buyer{
     private int age;
     private String id;
     private String birthDate;
-    private int food;
+    private int food = Buyer.food;
 
 
     @Override
