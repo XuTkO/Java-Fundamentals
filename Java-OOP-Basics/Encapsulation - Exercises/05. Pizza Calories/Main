@@ -1,0 +1,35 @@
+package pizzaCalories;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] pizzaName = bf.readLine().split("\\s+");
+
+        try {
+            Pizza pizza = new Pizza(pizzaName[1], Integer.parseInt(pizzaName[2]));
+            String[] dought = bf.readLine().split("\\s+");
+            Dough dough = new Dough(dought[1], Integer.parseInt(dought[dought.length - 1]));
+            if (dought.length == 4) {
+                dough.setBakeType(dought[2]);
+            }
+            pizza.addDought(dough);
+
+
+            for (int a = 0; a < Integer.parseInt(pizzaName[2]); a++) {
+                String[] input = bf.readLine().split("\\s+");
+
+                Toppings toppings = new Toppings(input[1], Integer.parseInt(input[2]));
+                pizza.addTopping(toppings);
+            }
+            System.out.println(pizza);
+
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+}
