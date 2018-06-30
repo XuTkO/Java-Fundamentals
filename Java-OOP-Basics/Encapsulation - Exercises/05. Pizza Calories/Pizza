@@ -1,0 +1,59 @@
+package pizzaCalories;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Pizza {
+    private String name;
+    private Dough dough;
+    private int numberTopings;
+    private List<Toppings> toppingsList;
+
+    public Pizza(String name, int numberTopings) {
+        this.setName(name);
+        this.setNumberTopings(numberTopings);
+        this.toppingsList = new ArrayList<>();
+    }
+
+    private void setName(String name) {
+        if (name.isEmpty() || name.trim().isEmpty() || name.length() > 15){
+            throw new IllegalArgumentException( "Pizza name should be between 1 and 15 symbols.");
+        }
+        this.name = name;
+    }
+
+    private void setNumberTopings(int numberTopings) {
+        if (numberTopings < 0 || numberTopings > 10){
+            throw new IllegalArgumentException("Number of toppings should be in range [0..10].");
+        }
+        this.numberTopings = numberTopings;
+    }
+
+    public void addTopping(Toppings toppings){
+        this.toppingsList.add(toppings);
+    }
+    public void addDought(Dough dough){
+        this.dough = dough;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.name).append(" - ");
+
+        double result = 0;
+        if (!this.dough.getBakeType().isEmpty()){
+            result += this.dough.getModifierFlour() * this.dough.getWeight() * this.dough.getModifierBakingType() * 2;
+        } else {
+            result += this.dough.getModifierFlour() * this.dough.getWeight() *2;
+        }
+
+        for (Toppings toppings : toppingsList) {
+            result+=(toppings.getModifierTopping()*toppings.getWeight())*2;
+        }
+
+        sb.append(String.format("%.2f",result));
+
+        return sb.toString();
+    }
+}
