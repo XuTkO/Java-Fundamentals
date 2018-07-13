@@ -1,7 +1,9 @@
 package custom_list;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyArrayList<T extends Comparable<T>> implements MyList<T> {
     private List<T> list;
@@ -23,10 +25,7 @@ public class MyArrayList<T extends Comparable<T>> implements MyList<T> {
 
     @Override
     public boolean contains(T element) {
-        if (this.list.contains(element)){
-            return true;
-        }
-        return false;
+        return this.list.contains(element);
     }
 
     @Override
@@ -39,35 +38,19 @@ public class MyArrayList<T extends Comparable<T>> implements MyList<T> {
 
     @Override
     public int countGreaterThan(T element) {
-        int counter = 0;
-        for (T t : list) {
-            if (t.compareTo(element) > 0){
-                counter++;
-            }
-        }
-        return counter;
+        return this.list.stream().filter(x->x.compareTo(element) > 0)
+                .collect(Collectors.toList())
+                .size();
     }
 
     @Override
     public T getMax() {
-        T max = this.list.get(0);
-        for (T t : list) {
-            if (t.compareTo(max) > 0){
-                max = t;
-            }
-        }
-        return max;
+      return  Collections.max(this.list);
     }
 
     @Override
     public T getMin() {
-        T min = this.list.get(0);
-        for (T t : list) {
-            if (t.compareTo(min) < 0){
-                min = t;
-            }
-        }
-        return min;
+       return Collections.min(this.list);
     }
 
     @Override
