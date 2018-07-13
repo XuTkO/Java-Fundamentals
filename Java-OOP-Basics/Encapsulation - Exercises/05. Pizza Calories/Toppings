@@ -1,0 +1,43 @@
+package pizzaCalories;
+
+public class Toppings {
+    private String typeTopping;
+    private double modifierTopping;
+    private int weight;
+
+    public Toppings(String typeTopping,int weight) {
+        this.setTypeTopping(typeTopping);
+        this.modifierTopping = modifierTopping;
+        this.setWeight(weight);
+    }
+
+    private void setTypeTopping(String typeTopping) {
+        if (typeTopping.equals("Meat")){
+            this.modifierTopping = 1.2;
+        } else if (typeTopping.equals("Veggies")){
+            this.modifierTopping = 0.8;
+        }else if (typeTopping.equals("Cheese")){
+            this.modifierTopping = 1.1;
+        }else if (typeTopping.equals("Sauce")){
+            this.modifierTopping = 0.9;
+        } else {
+            throw new IllegalArgumentException(String.format("Cannot place %s on top of your pizza.",typeTopping));
+        }
+        this.typeTopping = typeTopping;
+    }
+
+    protected double getModifierTopping() {
+        return modifierTopping;
+    }
+
+    protected int getWeight() {
+        return weight;
+    }
+
+    private void setWeight(int weight) {
+        if (weight < 1 || weight > 50){
+            throw new IllegalArgumentException(String.format("%s weight should be in the range [1..50].",this.typeTopping));
+        }
+        this.weight = weight;
+    }
+}

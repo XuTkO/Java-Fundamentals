@@ -1,0 +1,68 @@
+package pizzaCalories;
+
+public class Dough {
+    private static final String MESSAGE_FOR_DOUGHT = "Invalid type of dough.";
+    private String typeFlour;
+    private String bakeType;
+    private double modifierFlour;
+    private double modifierBakingType;
+    private int weight;
+
+
+    public Dough(String typeFlour, int weight) {
+        this.setTypeFlour(typeFlour);
+        this.setWeight(weight);
+    }
+
+    private void setWeight(int weight) {
+        if (weight < 1 || weight > 200){
+            throw new IllegalArgumentException("Dough weight should be in the range [1..200].");
+        }
+        this.weight = weight;
+    }
+
+    private void setTypeFlour(String typeFlour) {
+        if (typeFlour.equals("White")){
+            this.modifierFlour = 1.5;
+            this.typeFlour = typeFlour;
+        } else if (typeFlour.equals("Wholegrain")){
+            this.modifierFlour = 1.0;
+            this.typeFlour = typeFlour;
+        } else {
+            throw new IllegalArgumentException(MESSAGE_FOR_DOUGHT);
+        }
+    }
+
+    protected String getTypeFlour() {
+        return typeFlour;
+    }
+
+    protected String getBakeType() {
+        return bakeType;
+    }
+
+    protected double getModifierFlour() {
+        return modifierFlour;
+    }
+
+    protected double getModifierBakingType() {
+        return modifierBakingType;
+    }
+
+    protected int getWeight() {
+        return weight;
+    }
+
+    public void setBakeType(String bakeType) {
+        if (bakeType.equals("Crispy")){
+            this.modifierBakingType = 0.9;
+        } else if (bakeType.equals("Chewy")){
+            this.modifierBakingType = 1.1;
+        } else if (bakeType.equals("Homemade")){
+            this.modifierBakingType = 1.0;
+        } else {
+            throw new IllegalArgumentException(MESSAGE_FOR_DOUGHT);
+        }
+        this.bakeType = bakeType;
+    }
+}
