@@ -32,19 +32,17 @@ public class Stack<T> implements Iterable<T>{
         private int cursor;
 
         public StackIterator() {
-            this.cursor = elementCount - 1;
+            this.cursor = 0;
         }
-
-
 
         @Override
         public boolean hasNext() {
-            return this.cursor >= 0;
+            return elements.size() > this.cursor;
         }
 
         @Override
         public T next() {
-            return elements.get(cursor--);
+            return elements.get(cursor++);
         }
     }
 
