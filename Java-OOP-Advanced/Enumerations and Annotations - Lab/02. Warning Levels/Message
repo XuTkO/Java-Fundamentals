@@ -1,0 +1,24 @@
+package enums;
+
+public class Message {
+    private String importance;
+    private String text;
+
+    public Message(String importance, String text) {
+        this.importance = importance;
+        this.text = text;
+    }
+
+    public String getImportance() {
+        return importance;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    @Override
+    public String toString() {
+        return this.importance + ": " + this.text;
+    }
+}
