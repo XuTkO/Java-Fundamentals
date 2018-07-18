@@ -1,0 +1,28 @@
+package enums;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Logger {
+    private List<Message> messages;
+    private Importance importance;
+
+    public Logger(String importance) {
+        this.messages = new ArrayList<>();
+        this.importance = Enum.valueOf(Importance.class,importance.toUpperCase());
+    }
+
+    public void addMessage(String importance, String message){
+        Message message1 = new Message(importance,message);
+        Importance currentImp = Enum.valueOf(Importance.class,importance.toUpperCase());
+        if (currentImp.ordinal() >= this.importance.ordinal()){
+            this.messages.add(message1);
+        }
+    }
+
+    public Iterable<Message> getMessages(){
+        return this.messages;
+    }
+
+
+}
