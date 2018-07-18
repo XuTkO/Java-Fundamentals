@@ -1,0 +1,22 @@
+package enums;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class WeeklyCalendar {
+    private List<WeeklyEntry> weeklyEntryList;
+
+    public WeeklyCalendar() {
+        this.weeklyEntryList = new ArrayList<>();
+    }
+    public void addEntry(String weekday, String notes) {
+        WeeklyEntry weeklyEntry = new WeeklyEntry(weekday, notes);
+        weeklyEntryList.add(weeklyEntry);
+    }
+    public Iterable<WeeklyEntry> getWeeklySchedule() {
+        weeklyEntryList.sort(Comparator.comparingInt(x -> x.getWeekday().ordinal()));
+        return weeklyEntryList;
+
+    }
+}
